@@ -15,10 +15,11 @@ function setReleaseBranchName(){
 }
 
 function createMaintenanceBranch(){
-	gitCleanLocal
 	setReleaseBranchName
 	gitCreateBranch "$RELEASE_BRANCH_NAME"
 }
+
+gitCleanLocal
 
 [ -z ${BRANCH_NAME+x} ]  && error "BRANCH_NAME is not set."
 setReleaseVersion
