@@ -26,8 +26,6 @@ echo """
 """
 
 gitCleanLocal
-
-[ -z ${BRANCH_NAME+x} ]  && error "BRANCH_NAME is not set."
 setBranchName
 setReleaseVersion
 
