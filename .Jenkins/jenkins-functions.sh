@@ -7,6 +7,13 @@ function error(){
 	exit 2
 }
 
+function endScript(){
+	local msg=$1
+	[ ! -z "${msg}" ] && echo "iii ${msg}"
+	echo "That's all folks!"
+	exit 0
+}
+
 #
 # Set:
 # MAVEN_CURRENT_VERSION: version from the pom
@@ -19,9 +26,7 @@ function setMavenCurrentVersion(){
 }
 
 #
-# Set:
-# MAVEN_CURRENT_VERSION: version from the pom
-# MAVEN_RELEASE_VERSION: release version (MAVEN_CURRENT_VERSION without qualifier)
+# Set MAVEN_RELEASE_VERSION: release version (MAVEN_CURRENT_VERSION without qualifier)
 #
 function setReleaseVersion(){
 	local pom_file=$1
@@ -46,4 +51,35 @@ function isMaintenanceBranch(){
 function isMasterBranch(){
 	test "master" = "${1}"
 	return $?
+}
+
+#
+# Set GIT_BRANCH_COMMIT with last commit id of the given branch
+# Return !=0 if branch is not found
+#
+function gitGiveLastCommitOfBranch(){
+	local branch="$1"
+
+	git fetch --all
+	export GIT_BRANCH_COMMIT=$(git rev-parse --verify ${branch:=master} 2> /dev/null)
+	return $?
+}
+
+#
+# Create given branch
+#
+function gitCreateBranch(){
+	local branch="$1"
+	[ -z "${branch}" ] && error "Given branch is empty."
+	gitGiveLastCommitOfBranch "$branch" && error "The branch $branch already exists." 
+	git checkout -b ${branch}
+	git push ${branch}
+}
+
+#
+# Clean git local repository
+#
+function gitCleanLocal(){
+	git clean -d -x -f
+	git pull
 }

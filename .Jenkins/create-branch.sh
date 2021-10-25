@@ -4,13 +4,26 @@ echo "create-branch"
 base_dir=$(dirname $0)
 source ${base_dir}/jenkins-functions.sh
 
-[ -z ${BRANCH_NAME+x} ]  && error "BRANCH_NAME is not set"
+#
+# Branch maintenance name will be maintenance/x.y
+#
+function setReleaseBranchName(){
+	local splitVers=(${MAVEN_RELEASE_VERSION//./ })
+	[ 3 -eq ${#splitVers[@]} ] || error "Version must follow x.y.z pattern: ${MAVEN_RELEASE_VERSION}."
+	export RELEASE_BRANCH_NAME="maintenance/${splitVers[0]}.${splitVers[1]}"
+	echo "RELEASE_BRANCH_NAME=${RELEASE_BRANCH_NAME}"
+}
 
-setReleaseVersion pom.xml
+function createMaintenanceBranch(){
+	gitCleanLocal
+	setReleaseBranchName
+	gitCreateBranch "$RELEASE_BRANCH_NAME"
+}
 
-echo "maven_version: ${MAVEN_CURRENT_VERSION}"
-echo "release_version: ${MAVEN_RELEASE_VERSION}"
-echo "branch-name: ${BRANCH_NAME}"
+[ -z ${BRANCH_NAME+x} ]  && error "BRANCH_NAME is not set."
+setReleaseVersion
 
-isMaintenanceBranch "${BRANCH_NAME}" && echo "yes maintenance"
-isMasterBranch "${BRANCH_NAME}" && echo "yes master"
+isMaintenanceBranch "${BRANCH_NAME}" && endScript "You are already on maintenance branch."
+isMasterBranch "${BRANCH_NAME}" && createMaintenanceBranch
+
+endScript
