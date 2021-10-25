@@ -81,6 +81,7 @@ function gitCreateBranch(){
 # Clean git local repository
 #
 function gitCleanLocal(){
+	git reset --hard
 	git clean -d -x -f
 	git pull
 }
