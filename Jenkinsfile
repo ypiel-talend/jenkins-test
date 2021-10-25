@@ -1,4 +1,4 @@
-def branch-name = env.BRANCH_NAME
+def branchName = env.BRANCH_NAME
 
 pipeline {
     agent { docker { image 'maven:3.3.3' } }
@@ -8,8 +8,8 @@ pipeline {
                 sh 'mvn --version'
 		sh 'echo "------------------------------------"'
 		sh 'git --version'
-		sh 'echo "branch is: ${branch-name}'
-		println("The branch is: " + branch-name)
+		sh 'echo "branch is: ${branchName}'
+		println("The branch is: " + branchName)
 		sh '.Jenkins/create-branch.sh'
             }
         }
