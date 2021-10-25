@@ -9,7 +9,7 @@ function error(){
 
 function endScript(){
 	local msg=$1
-	[ ! -z "${msg}" ] && echo "iii ${msg}"
+	[ ! -z "${msg}" ] && echo "${msg}"
 	echo "That's all folks!"
 	exit 0
 }
@@ -18,8 +18,7 @@ function endScript(){
 # Set BRANCH_NAME, can be set by Jenkins, if not retrieve with git.
 #
 function setBranchName(){
-	[ -z ${BRANCH_NAME+x} ] || (echo "BRANCH_NAME variable already set '${BRANCH_NAME}." && return 0)
-	export BRANCH_NAME=$(git branch --show-current)
+	[ -z ${BRANCH_NAME+x} ] && echo "BRANCH_NAME not set, retrieved from git..." && export BRANCH_NAME=$(git branch --show-current)
 	echo "BRANCH_NAME=${BRANCH_NAME}" 
 }
 
