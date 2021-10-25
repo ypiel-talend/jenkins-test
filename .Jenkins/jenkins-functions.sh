@@ -62,6 +62,7 @@ function gitGiveLastCommitOfBranch(){
 
 	git fetch --all
 	export GIT_BRANCH_COMMIT=$(git rev-parse --verify ${branch:=master} 2> /dev/null)
+	test ! -z "${GIT_BRANCH_COMMIT}"
 	return $?
 }
 
