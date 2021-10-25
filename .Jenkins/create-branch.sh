@@ -19,12 +19,19 @@ function createMaintenanceBranch(){
 	gitCreateBranch "$RELEASE_BRANCH_NAME"
 }
 
+echo """
+************************************************
+* Create a maintenance/x.y branch from master. *
+************************************************
+"""
+
 gitCleanLocal
 
 [ -z ${BRANCH_NAME+x} ]  && error "BRANCH_NAME is not set."
 setReleaseVersion
 
-isMaintenanceBranch "${BRANCH_NAME}" && endScript "You are already on maintenance branch."
+isMaintenanceBranch "${BRANCH_NAME}" && endScript "You are already on maintenance branch '${BRANCH_NAME}'."
+isMasterBranch "${BRANCH_NAME}" || endScript "Unknown branch name '$BRANCH_NAME'."
 isMasterBranch "${BRANCH_NAME}" && createMaintenanceBranch
 
 endScript
