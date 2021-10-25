@@ -70,6 +70,7 @@ function gitGiveLastCommitOfBranch(){
 # Create given branch
 #
 function gitCreateBranch(){
+	echo "Try to create '$1' branch..."
 	local branch="$1"
 	[ -z "${branch}" ] && error "Given branch is empty."
 	gitGiveLastCommitOfBranch "$branch" && error "The branch $branch already exists." 
@@ -81,6 +82,7 @@ function gitCreateBranch(){
 # Clean git local repository
 #
 function gitCleanLocal(){
+	echo "Clean local git repository..."
 	git reset --hard
 	git clean -d -x -f
 	git pull
