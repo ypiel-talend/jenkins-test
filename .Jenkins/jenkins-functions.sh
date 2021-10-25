@@ -15,8 +15,16 @@ function endScript(){
 }
 
 #
-# Set:
-# MAVEN_CURRENT_VERSION: version from the pom
+# Set BRANCH_NAME, can be set by Jenkins, if not retrieve with git.
+#
+function setBranchName(){
+	[ -z ${BRANCH_NAME+x} ] || (echo "BRANCH_NAME variable already set '${BRANCH_NAME}." && return 0)
+	export BRANCH_NAME=$(git branch --show-current)
+	echo "BRANCH_NAME=${BRANCH_NAME}" 
+}
+
+#
+# Set MAVEN_CURRENT_VERSION: version from the pom
 #
 function setMavenCurrentVersion(){
 	local pom_file=$1
