@@ -33,6 +33,20 @@ function setMavenCurrentVersion(){
 }
 
 #
+# Update maven version
+#
+function mvnUpdateVersion(){
+	[ -z "${1}" ] && error "Given version is empty '${1}'."
+	mvn versions:set -DnewVersion="${1}"
+
+	local connectors_versions_properties=(connectors-se.version common.version connectors-test-bom.version)
+	for p in "${connectors_versions_properties[@]}"
+	do
+		mvn versions:set-property -Dproperty="${p}" -DnewVersion="${1}"
+	done
+}
+
+#
 # Set MAVEN_RELEASE_VERSION: release version (MAVEN_CURRENT_VERSION without qualifier)
 #
 function setReleaseVersion(){
