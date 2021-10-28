@@ -20,9 +20,6 @@ function endScript(){
 
 	cat ${JENKINS_OUT_FILE}
 
-	echo "--------------------"
-        cat .git/config | grep ypiel
-
 	[ ! -z "${msg}" ] && echo "${msg}"
 	exit 0
 }
@@ -47,7 +44,7 @@ function setBranchName(){
 # Set GIT_REPOSITORY variable
 #
 function setGitRepository(){
-	GIT_REPOSITORY=$(git config --get remote.origin.url | sed -e "s,.git/,, " | sed -e "s,.*github.com.\(.*\)/\(.*\),https://github.com/\1/\2/,")
+	GIT_REPOSITORY=$(git config --get remote.origin.url | sed -e "s,\.git,, " | sed -e "s,.*github.com.\(.*\)/\(.*\),https://github.com/\1/\2/,")
 }
 
 #
