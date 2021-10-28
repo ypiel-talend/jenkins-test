@@ -27,7 +27,7 @@ function updateMasterVersion(){
 	mvnUpdateVersion "${newVersion}"
 	git add .
 	git commit -m "chore: bump ${MAVEN_CURRENT_VERSION} version to ${newVersion}"
-	pushBranch "${branch}"
+	pushBranch "${temp_branch}"
 	mergeBranches
 }
 
