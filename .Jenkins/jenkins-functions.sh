@@ -7,7 +7,7 @@ export LOG_FILE=$(mktemp)
 
 function error(){
 	echo "Display log file:"
-	cat LOG_FILE
+	cat ${LOG_FILE}
 	echo "end log file."
 	echo
 	echo "Execution error:" 1>&2

@@ -47,17 +47,17 @@ echo """
 ************************************************
 """
 
-gitCleanLocal > ${LOG_FILE}
-setGitRepository > ${LOG_FILE}
-setBranchName > ${LOG_FILE}
-setReleaseVersion > ${LOG_FILE}
+gitCleanLocal >> ${LOG_FILE}
+setGitRepository >> ${LOG_FILE}
+setBranchName >> ${LOG_FILE}
+setReleaseVersion >> ${LOG_FILE}
 
 isMaintenanceBranch "${BRANCH_NAME}" && error "You are already on maintenance branch '${BRANCH_NAME}'."
 isMasterBranch "${BRANCH_NAME}" || error "Unknown branch name '$BRANCH_NAME'."
 
-createMaintenanceBranch > ${LOG_FILE}
-git checkout ${BRANCH_NAME} > ${LOG_FILE} # come back to master
-updateMasterVersion > ${LOG_FILE}
+createMaintenanceBranch >> ${LOG_FILE}
+git checkout ${BRANCH_NAME} >> ${LOG_FILE} # come back to master
+updateMasterVersion >> ${LOG_FILE}
 jenkinsMessage
 
 endScript
