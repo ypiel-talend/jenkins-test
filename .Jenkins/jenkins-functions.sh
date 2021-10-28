@@ -2,7 +2,7 @@
 [ ! -z ${DEBUG+x} ] && set -x
 
 # Define a temporary output file
-export OUT_FILE=$(mktemp)
+export JENKINS_OUT_FILE=$(mktemp)
 export LOG_FILE=$(mktemp)
 
 function error(){
@@ -18,7 +18,7 @@ function error(){
 function endScript(){
 	local msg=$1
 
-	cat ${OUT_FILE}
+	cat ${JENKINS_OUT_FILE}
 
 	[ ! -z "${msg}" ] && echo "${msg}"
 	exit 0

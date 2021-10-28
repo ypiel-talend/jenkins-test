@@ -37,7 +37,7 @@ function jenkinsMessage(){
 
 Please, create PR and continue after merge:
 ${GIT_REPOSITORY}/compare/${BRANCH_NAME}...${temp_branch}?expand=1
-""" >> ${TEMP_FILE}
+""" >> ${JENKINS_OUT_FILE}
 }
 
 
