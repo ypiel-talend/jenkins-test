@@ -17,6 +17,7 @@ function setReleaseBranchName(){
 function createMaintenanceBranch(){
 	setReleaseBranchName
 	gitCreateBranch "$RELEASE_BRANCH_NAME"
+	git checkout ${BRANCH_NAME}
 }
 
 echo """
