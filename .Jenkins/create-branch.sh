@@ -22,21 +22,21 @@ function updateMasterVersion(){
 	local minor=$((${MAVEN_RELEASE_VERSION_ARRAY[1]}+1))
 	export NEW_MASTER_VERSION="${MAVEN_RELEASE_VERSION_ARRAY[0]}.${minor}.${MAVEN_RELEASE_VERSION_ARRAY[2]}-SNAPSHOT"
 
-	local temp_branch="temp/bump/${NEW_MASTER_VERSION}"
-	git checkout -b "${temp_branch}"
+	export TEMP_BUMP_BRANCH="temp/bump/${NEW_MASTER_VERSION}"
+	git checkout -b "${TEMP_BUMP_BRANCH}"
 	mvnUpdateVersion "${NEW_MASTER_VERSION}"
 	git add .
 	git commit -m "chore: bump ${MAVEN_CURRENT_VERSION} version to ${NEW_MASTER_VERSION}"
-	pushBranch "${temp_branch}"
+	pushBranch "${TEMP_BUMP_BRANCH}"
 }
 
 function jenkinsMessage(){
 	echo """
 - ${RELEASE_BRANCH_NAME} has been created from ${BRANCH_NAME}
-- ${temp_branch} has been create and version has been bumped to ${NEW_MASTER_VERSION}
+- ${TEMP_BUMP_BRANCH} has been create and version has been bumped to ${NEW_MASTER_VERSION}
 
 Please, create PR and continue after merge:
-${GIT_REPOSITORY}/compare/${BRANCH_NAME}...${temp_branch}?expand=1
+${GIT_REPOSITORY}/compare/${BRANCH_NAME}...${TEMP_BUMP_BRANCH}?expand=1
 """ >> ${JENKINS_OUT_FILE}
 }
 
