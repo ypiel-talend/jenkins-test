@@ -10,7 +10,7 @@
 
 
     <properties>
-        <connectors-se.version>1.27.0-SNAPSHOT</connectors-se.version>
+        <connectors-se.version>1.28.0-SNAPSHOT</connectors-se.version>
         <connectors-test-bom.version>1.27.0-SNAPSHOT</connectors-test-bom.version>
         <aaaa.version>1.0.0</aaaa.version>
         <common.version>1.27.0-SNAPSHOT</common.version>
