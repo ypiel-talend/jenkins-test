@@ -32,8 +32,8 @@ function updateMasterVersion(){
 
 function jenkinsMessage(){
 	echo """
-- ${RELEASE_BRANCH_NAME} has been created from ${BRANCH_NAME}
-- ${TEMP_BUMP_BRANCH} has been create and version has been bumped to ${NEW_MASTER_VERSION}
+- ${RELEASE_BRANCH_NAME} branch has been created from ${BRANCH_NAME}
+- ${TEMP_BUMP_BRANCH} branch has been created and version has been bumped to ${NEW_MASTER_VERSION}
 
 Please, create PR and continue after merge:
 ${GIT_REPOSITORY}/compare/${BRANCH_NAME}...${TEMP_BUMP_BRANCH}?expand=1
