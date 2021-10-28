@@ -1,6 +1,5 @@
 #! /bin/bash
 
-echo "create-branch"
 base_dir=$(dirname $0)
 source ${base_dir}/jenkins-functions.sh
 
