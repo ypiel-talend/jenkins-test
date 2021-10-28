@@ -59,11 +59,6 @@ function setReleaseVersion(){
 
 	export MAVEN_RELEASE_VERSION_ARRAY=($(echo ${MAVEN_RELEASE_VERSION} | sed "s/\./ /g"))
 	[ 3 -eq ${#MAVEN_RELEASE_VERSION_ARRAY[@]} ] || error "Split version doesn't contains 3 parts ${MAVEN_RELEASE_VERSION}."
-	#export MAVEN_RELEASE_VERSION_ARRAY
-	for x in "${MAVEN_RELEASE_VERSION_ARRAY[@]}"
-	do
-		echo "===> $x"
-	done
 }
 
 #
@@ -104,7 +99,8 @@ function gitCreateBranch(){
 	[ -z "${branch}" ] && error "Given branch is empty."
 	gitGiveLastCommitOfBranch "$branch" && error "The branch $branch already exists." 
 	git checkout -b ${branch} || error "Can't checkout ${branch}."
-	git push --set-upstream origin ${branch} || error "Can't push new created branch ${branch}."
+	#git push --set-upstream origin ${branch} || error "Can't push new created branch ${branch}."
+	pushBranch "${branch}"
 }
 
 #
@@ -115,4 +111,16 @@ function gitCleanLocal(){
 	git reset --hard
 	git clean -d -x -f
 	git pull
+}
+
+function pushBranch(){
+	git push -q --set-upstream origin "${1}" || error "Can't push new created branch ${1}."
+}
+
+#
+# ASk to merge branche
+#
+function mergeBranches{
+	echo "ask"
+	read aa
 }

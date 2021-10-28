@@ -16,10 +16,19 @@ function setReleaseBranchName(){
 function createMaintenanceBranch(){
 	setReleaseBranchName
 	gitCreateBranch "$RELEASE_BRANCH_NAME"
-	git checkout ${BRANCH_NAME}
+}
+
+function updateMasterVersion(){
 	local minor=$((${MAVEN_RELEASE_VERSION_ARRAY[1]}+1))
 	local newVersion="${MAVEN_RELEASE_VERSION_ARRAY[0]}.${minor}.${MAVEN_RELEASE_VERSION_ARRAY[2]}-SNAPSHOT"
+
+	local temp_branch="temp/bump/${newVersion}"
+	git checkout -b "${temp_branch}"
 	mvnUpdateVersion "${newVersion}"
+	git add .
+	git commit -m "chore: bump ${MAVEN_CURRENT_VERSION} version to ${newVersion}"
+	pushBranch "${branch}"
+	mergeBranches
 }
 
 echo """
@@ -34,6 +43,10 @@ setReleaseVersion
 
 isMaintenanceBranch "${BRANCH_NAME}" && endScript "You are already on maintenance branch '${BRANCH_NAME}'."
 isMasterBranch "${BRANCH_NAME}" || endScript "Unknown branch name '$BRANCH_NAME'."
-isMasterBranch "${BRANCH_NAME}" && createMaintenanceBranch
+#isMasterBranch "${BRANCH_NAME}" && createMaintenanceBranch
+
+createMaintenanceBranch
+git checkout ${BRANCH_NAME} # come back to master
+updateMasterVersion
 
 endScript
