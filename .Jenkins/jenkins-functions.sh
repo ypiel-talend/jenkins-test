@@ -20,6 +20,9 @@ function endScript(){
 
 	cat ${JENKINS_OUT_FILE}
 
+	echo "--------------------"
+        cat .git/config | grep ypiel
+
 	[ ! -z "${msg}" ] && echo "${msg}"
 	exit 0
 }
