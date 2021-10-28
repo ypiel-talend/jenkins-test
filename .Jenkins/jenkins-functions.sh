@@ -1,7 +1,15 @@
 # set a value in DEBUG variable to echo all commands
 [ ! -z ${DEBUG+x} ] && set -x
 
+# Define a temporary output file
+export OUT_FILE=$(mktemp)
+export LOG_FILE=$(mktemp)
+
 function error(){
+	echo "Display log file:"
+	cat LOG_FILE
+	echo "end log file."
+	echo
 	echo "Execution error:" 1>&2
 	echo ${1:=No error message} 1>&2
 	exit 2
@@ -9,8 +17,10 @@ function error(){
 
 function endScript(){
 	local msg=$1
+
+	cat ${OUT_FILE}
+
 	[ ! -z "${msg}" ] && echo "${msg}"
-	echo "That's all folks!"
 	exit 0
 }
 
@@ -20,6 +30,13 @@ function endScript(){
 function setBranchName(){
 	[ -z ${BRANCH_NAME+x} ] && echo "BRANCH_NAME not set, retrieved from git..." && export BRANCH_NAME=$(git branch --show-current)
 	echo "BRANCH_NAME=${BRANCH_NAME}" 
+}
+
+#
+# Set GIT_REPOSITORY variable
+#
+function setGitRepository(){
+	GIT_REPOSITORY=$(git config --get remote.origin.url | sed -e "s,^.*github.com.talend/\(.*\)\(.git\)\?,https://github.com/Talend/\1,")
 }
 
 #
@@ -113,14 +130,9 @@ function gitCleanLocal(){
 	git pull
 }
 
+#
+# Push given branch
+#
 function pushBranch(){
 	git push -q --set-upstream origin "${1}" || error "Can't push new created branch ${1}."
-}
-
-#
-# ASk to merge branche
-#
-function mergeBranches{
-	echo "ask"
-	read aa
 }

@@ -20,16 +20,26 @@ function createMaintenanceBranch(){
 
 function updateMasterVersion(){
 	local minor=$((${MAVEN_RELEASE_VERSION_ARRAY[1]}+1))
-	local newVersion="${MAVEN_RELEASE_VERSION_ARRAY[0]}.${minor}.${MAVEN_RELEASE_VERSION_ARRAY[2]}-SNAPSHOT"
+	export NEW_MASTER_VERSION="${MAVEN_RELEASE_VERSION_ARRAY[0]}.${minor}.${MAVEN_RELEASE_VERSION_ARRAY[2]}-SNAPSHOT"
 
-	local temp_branch="temp/bump/${newVersion}"
+	local temp_branch="temp/bump/${NEW_MASTER_VERSION}"
 	git checkout -b "${temp_branch}"
-	mvnUpdateVersion "${newVersion}"
+	mvnUpdateVersion "${NEW_MASTER_VERSION}"
 	git add .
-	git commit -m "chore: bump ${MAVEN_CURRENT_VERSION} version to ${newVersion}"
+	git commit -m "chore: bump ${MAVEN_CURRENT_VERSION} version to ${NEW_MASTER_VERSION}"
 	pushBranch "${temp_branch}"
-	mergeBranches
 }
+
+function jenkinsMessage(){
+	echo """
+- ${RELEASE_BRANCH_NAME} has been created from ${BRANCH_NAME}
+- ${temp_branch} has been create and version has been bumped to ${NEW_MASTER_VERSION}
+
+Please, create PR and continue after merge:
+${GIT_REPOSITORY}/compare/${BRANCH_NAME}...${temp_branch}?expand=1
+""" >> ${TEMP_FILE}
+}
+
 
 echo """
 ************************************************
@@ -37,16 +47,17 @@ echo """
 ************************************************
 """
 
-gitCleanLocal
-setBranchName
-setReleaseVersion
+gitCleanLocal > ${LOG_FILE}
+setGitRepository > ${LOG_FILE}
+setBranchName > ${LOG_FILE}
+setReleaseVersion > ${LOG_FILE}
 
-isMaintenanceBranch "${BRANCH_NAME}" && endScript "You are already on maintenance branch '${BRANCH_NAME}'."
-isMasterBranch "${BRANCH_NAME}" || endScript "Unknown branch name '$BRANCH_NAME'."
-#isMasterBranch "${BRANCH_NAME}" && createMaintenanceBranch
+isMaintenanceBranch "${BRANCH_NAME}" && error "You are already on maintenance branch '${BRANCH_NAME}'."
+isMasterBranch "${BRANCH_NAME}" || error "Unknown branch name '$BRANCH_NAME'."
 
-createMaintenanceBranch
-git checkout ${BRANCH_NAME} # come back to master
-updateMasterVersion
+createMaintenanceBranch > ${LOG_FILE}
+git checkout ${BRANCH_NAME} > ${LOG_FILE} # come back to master
+updateMasterVersion > ${LOG_FILE}
+jenkinsMessage
 
 endScript
