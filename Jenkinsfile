@@ -5,11 +5,13 @@ pipeline {
     stages {
         stage('build') {
             steps {
-		CREATE_BRANCH_OUT = sh (
-					script: '.Jenkins/create-branch.sh',
-					returnStdout: true
-		).trim()
-		echo "Create branch: ${CREATE_BRANCH_OUT}"
+		script{
+			CREATE_BRANCH_OUT = sh (
+						script: '.Jenkins/create-branch.sh',
+						returnStdout: true
+			).trim()
+			echo "Create branch: ${CREATE_BRANCH_OUT}"
+		}
             }
         }
     }
