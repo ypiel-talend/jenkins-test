@@ -20,7 +20,7 @@ function createMaintenanceBranch(){
 	git checkout ${BRANCH_NAME}
 	local minor=$((${MAVEN_RELEASE_VERSION_ARRAY[1]}+1))
 	local newVersion="${MAVEN_RELEASE_VERSION_ARRAY[0]}.${minor}.${MAVEN_RELEASE_VERSION_ARRAY[2]}-SNAPSHOT"
-	mvnUpdateVersion "${mvnUpdateVersion}
+	mvnUpdateVersion "${mvnUpdateVersion}"
 }
 
 echo """
