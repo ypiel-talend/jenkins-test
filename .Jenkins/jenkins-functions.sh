@@ -56,6 +56,10 @@ function setReleaseVersion(){
 	setMavenCurrentVersion $pom_file
 	export MAVEN_RELEASE_VERSION=$(echo ${MAVEN_CURRENT_VERSION} | cut -d- -f1)
 	echo "MAVEN_RELEASE_VERSION=${MAVEN_RELEASE_VERSION}"
+
+	declare -a MAVEN_RELEASE_VERSION_ARRAY=($(echo ${MAVEN_RELEASE_VERSION} | sed "s/-SNAPSHOT//" | sed "s/\./ /g"))
+	[ 3 -eq ${#MAVEN_RELEASE_VERSION_ARRAY[@]} ] || error "Split version doesn't contains 3 part ${MAVEN_RELEASE_VERSION}."
+	export MAVEN_RELEASE_VERSION_ARRAY
 }
 
 #
