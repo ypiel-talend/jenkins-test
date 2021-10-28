@@ -6,10 +6,10 @@ export JENKINS_OUT_FILE=$(mktemp)
 export LOG_FILE=$(mktemp)
 
 function error(){
-	echo "Display log file:"
-	cat ${LOG_FILE}
-	echo "end log file."
-	echo
+	echo "Display log file:" >&2
+	cat ${LOG_FILE} >&2
+	echo "end log file." >&2
+	echo >&2
 	echo "Execution error:" 1>&2
 	echo ${1:=No error message} 1>&2
 	exit 2
