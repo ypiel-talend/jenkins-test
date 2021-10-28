@@ -27,6 +27,14 @@ function endScript(){
 	exit 0
 }
 
+function head(){
+	echo """
+************************************************
+* Create a maintenance/x.y branch from master. *
+************************************************
+""" | tee ${LOG_FILE} | tee ${JENKINS_OUT_FILE}
+}
+
 #
 # Set BRANCH_NAME, can be set by Jenkins, if not retrieve with git.
 #
@@ -39,7 +47,7 @@ function setBranchName(){
 # Set GIT_REPOSITORY variable
 #
 function setGitRepository(){
-	GIT_REPOSITORY=$(git config --get remote.origin.url | sed -e "s,^.*github.com.\(.*\)/\(.*\)\(.git\)\?,https://github.com/\1/\2,")
+	GIT_REPOSITORY=$(git config --get remote.origin.url | sed -e "s,.git/,, " | sed -e "s,.*github.com.\(.*\)/\(.*\),https://github.com/\1/\2/,")
 }
 
 #
