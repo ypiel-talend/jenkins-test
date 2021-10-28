@@ -36,7 +36,7 @@ function setBranchName(){
 # Set GIT_REPOSITORY variable
 #
 function setGitRepository(){
-	GIT_REPOSITORY=$(git config --get remote.origin.url | sed -e "s,^.*github.com.talend/\(.*\)\(.git\)\?,https://github.com/Talend/\1,")
+	GIT_REPOSITORY=$(git config --get remote.origin.url | sed -e "s,^.*github.com..*/\(.*\)\(.git\)\?,https://github.com/Talend/\1,")
 }
 
 #
