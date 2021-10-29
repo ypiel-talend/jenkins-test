@@ -18,7 +18,9 @@ function endScript(){
 	local jenkins_infos=$(cat ${JENKINS_OUT_FILE})
 	if [ -s "${JENKINS_OUT_FILE}" ]
 	then
+		echo
 		echo "--------------------------------------------------------------------"
+		[ -z "${DRYN_RUN}" ] && echo "(DRY_RUN was set, nothing has been pushed to github.)"
 		cat ${JENKINS_OUT_FILE}
 	fi
 
