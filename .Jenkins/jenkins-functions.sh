@@ -175,7 +175,7 @@ function gitPush(){
 	local echoed=""
 	if [ ! -z "${DRY_RUN}" ]
 	then
-		echo "DRYN_RUN is set...x${DRYN_RUN}x"
+		echo "DRYN_RUN is set..."
 		echoed="echo Skip command:"
 	fi
 	${echoed} ${push_cmd} || error "Can't push: ${push_cmd}"

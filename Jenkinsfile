@@ -13,12 +13,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-		script{
-			CREATE_BRANCH_OUT = sh (
-						script: '.Jenkins/create-branch.sh',
-						returnStdout: false
-			).trim()
-		}
+		sh (script: '.Jenkins/create-branch.sh', returnStdout: false)
 		input(message: "Please, check above message, and click on continue when ready...")
             }
         }
