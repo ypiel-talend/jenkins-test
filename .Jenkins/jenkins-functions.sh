@@ -16,10 +16,10 @@ function endScript(){
 	[ ! -z "${msg}" ] && echo "${msg}"
 
 	local jenkins_infos=$(cat ${JENKINS_OUT_FILE})
-	if [ ! -z "${jenkins_infos}" ]
+	if [ -s "${JENKINS_OUT_FILE}" ]
 	then
 		echo "--------------------------------------------------------------------"
-		echo $jenkins_infos
+		echo cat ${JENKINS_OUT_FILE}
 	fi
 
 	exit 0
