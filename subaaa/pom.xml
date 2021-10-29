@@ -2,17 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>testjenkins</artifactId>
+        <groupId>org.ypiel.test</groupId>
+        <version>2.55.0-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.ypiel.test</groupId>
-    <artifactId>testjenkins</artifactId>
+    <artifactId>subaaa</artifactId>
     <packaging>pom</packaging>
-    <version>2.55.0-SNAPSHOT</version>
-    <modules>
-        <module>subaaa</module>
-        <module>subbbb</module>
-    </modules>
-
 
     <properties>
         <connectors-se.version>1.28.0-SNAPSHOT</connectors-se.version>
@@ -20,5 +18,10 @@
         <aaaa.version>1.0.0</aaaa.version>
         <common.version>1.27.0-SNAPSHOT</common.version>
     </properties>
+
+    <modules>
+        <module>subab</module>
+    </modules>
+
 
 </project>
