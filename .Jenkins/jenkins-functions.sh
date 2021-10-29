@@ -3,12 +3,8 @@
 
 # Define a temporary output file
 export JENKINS_OUT_FILE=$(mktemp)
-export LOG_FILE=$(mktemp)
 
 function error(){
-	echo "Display log file:" >&2
-	cat ${LOG_FILE} >&2
-	echo "end log file." >&2
 	echo >&2
 	echo "Execution error:" 1>&2
 	echo ${1:=No error message} 1>&2
@@ -18,7 +14,12 @@ function error(){
 function endScript(){
 	local msg=$1
 
-	cat ${JENKINS_OUT_FILE}
+	local jenkins_infos=$(cat ${JENKINS_OUT_FILE})
+	if [  -z "${jenkins_infos}" ]
+	then
+		echo "--------------------------------------------------------------------"
+		echo $jenkins_infos
+	fi
 
 	[ ! -z "${msg}" ] && echo "${msg}"
 	exit 0
@@ -29,7 +30,7 @@ function head(){
 ************************************************
 * ${1}
 ************************************************
-""" | tee ${LOG_FILE} | tee ${JENKINS_OUT_FILE}
+""" | tee ${JENKINS_OUT_FILE}
 }
 
 #
