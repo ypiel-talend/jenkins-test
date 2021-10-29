@@ -51,8 +51,16 @@ function head(){
 """ | tee ${JENKINS_OUT_FILE}
 echo
 echo "Tools versions:"
+	echo "* Maven:"
 	mvn --version
+	echo "* Git:"
 	git --version
+	echo "* Shell:"
+	echo "SHELL=${SHELL}"
+	${SHELL} --version
+
+	export AFAC="xxxxxxx"
+	
 echo
 echo
 }

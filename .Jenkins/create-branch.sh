@@ -52,6 +52,8 @@ ${GIT_REPOSITORY}/compare/${BRANCH_NAME}...${TEMP_BUMP_BRANCH}?expand=1
 
 head "Create a maintenance/x.y branch from master."
 
+echo "==> AFAC=${AFAC}"
+
 gitCleanLocal 
 setGitRepository 
 setBranchName 
