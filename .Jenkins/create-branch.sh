@@ -52,6 +52,7 @@ isMaintenanceBranch "${BRANCH_NAME}" && error "You are already on maintenance br
 isMasterBranch "${BRANCH_NAME}" || error "Unknown branch name '$BRANCH_NAME'."
 
 createMaintenanceBranch 
+gitCleanLocal 
 git checkout ${BRANCH_NAME}  # come back to master
 updateMasterVersion 
 jenkinsMessage
