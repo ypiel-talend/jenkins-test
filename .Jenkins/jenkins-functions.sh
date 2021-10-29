@@ -17,7 +17,7 @@ fi
 export JENKINS_OUT_FILE=$(mktemp)
 
 # Some option for manven to be less verbose
-# alias mvn="mvn -ntp"
+alias mvn="mvn -ntp"
 
 function error(){
 	echo >&2

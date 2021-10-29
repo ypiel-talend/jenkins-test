@@ -16,9 +16,8 @@ pipeline {
 		script{
 			CREATE_BRANCH_OUT = sh (
 						script: '.Jenkins/create-branch.sh',
-						returnStdout: true
+						returnStdout: false
 			).trim()
-			echo "${CREATE_BRANCH_OUT}"
 		}
 		input(message: "Please, check above message, and click on continue when ready...")
             }
