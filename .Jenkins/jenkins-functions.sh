@@ -1,3 +1,6 @@
+# DEBUG: active debug mode
+# DRY_RUN: skip all git push (can generate side effects)
+#
 # set a value in DEBUG variable to echo all commands
 [ ! -z ${DEBUG+x} ] && set -x
 
@@ -20,7 +23,7 @@ function endScript(){
 	then
 		echo
 		echo "--------------------------------------------------------------------"
-		[ -z "${DRYN_RUN}" ] && echo "(DRY_RUN was set, nothing has been pushed to github.)"
+		[ -z "${DRYN_RUN}" ] && echo "(DRY_RUN was set, nothing has been pushed to github.)" && echo
 		cat ${JENKINS_OUT_FILE}
 	fi
 
@@ -40,6 +43,12 @@ function head(){
 #
 function setBranchName(){
 	[ -z ${BRANCH_NAME+x} ] && echo "BRANCH_NAME not set, retrieved from git..." && export BRANCH_NAME=$(git branch --show-current)
+
+	# if still no branch checkout master
+	[ -z ${BRANCH_NAME+x} ] && echo "BRANCH_NAME still not set, checkout master..." && git checkout master && export BRANCH_NAME=$(git branch --show-current)
+
+	[ -z ${BRANCH_NAME+x} ] && error "BRANCH_NAME not set."
+
 	echo "BRANCH_NAME=${BRANCH_NAME}" 
 }
 
