@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>testjenkins</artifactId>
+        <artifactId>subaaa</artifactId>
         <groupId>org.ypiel.test</groupId>
-        <version>1.65.0-SNAPSHOT</version>
+        <version>2.55.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>subbbb</artifactId>
+    <artifactId>subab</artifactId>
 
     <properties>
         <connectors-se.version>1.28.0-SNAPSHOT</connectors-se.version>
