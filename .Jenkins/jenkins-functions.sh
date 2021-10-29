@@ -17,7 +17,7 @@ fi
 export JENKINS_OUT_FILE=$(mktemp)
 
 # Some option for manven to be less verbose
-alias mvn="mvn -ntp --batch-mode -q"
+export MVN_OPTIONS="-ntp --batch-mode -q"
 
 function error(){
 	echo >&2
@@ -76,7 +76,7 @@ function setGitRepository(){
 function setMavenCurrentVersion(){
 	local pom_file=$1
 	[ ! -f ${pom_file:=pom.xml} ] && error "'${1}' file doesn't exist."
-	export MAVEN_CURRENT_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout)
+	export MAVEN_CURRENT_VERSION=$(mvn ${MVN_OPTIONS} org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout)
 	echo "MAVEN_CURRENT_VERSION=${MAVEN_CURRENT_VERSION}"
 }
 
@@ -85,12 +85,12 @@ function setMavenCurrentVersion(){
 #
 function mvnUpdateVersion(){
 	[ -z "${1}" ] && error "Given version is empty '${1}'."
-	mvn versions:set -DnewVersion="${1}"
+	mvn ${MVN_OPTIONS} versions:set -DnewVersion="${1}"
 
 	local connectors_versions_properties=(connectors-se.version common.version connectors-test-bom.version)
 	for p in "${connectors_versions_properties[@]}"
 	do
-		mvn versions:set-property -Dproperty="${p}" -DnewVersion="${1}"
+		mvn ${MVN_OPTIONS} versions:set-property -Dproperty="${p}" -DnewVersion="${1}"
 	done
 }
 
