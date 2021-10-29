@@ -17,7 +17,8 @@ fi
 export JENKINS_OUT_FILE=$(mktemp)
 
 # Some option for manven to be less verbose
-export MVN_OPTIONS="-ntp --batch-mode -q"
+[ -z ${MVN_OPTIONS+x} ] && export MVN_OPTIONS="-ntp --batch-mode -q"
+echo "MVN_OPTIONS=${MVN_OPTIONS}"
 
 function error(){
 	echo >&2
