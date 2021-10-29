@@ -21,7 +21,7 @@ pipeline {
 			echo "Create branch: ${CREATE_BRANCH_OUT}"
 		}
 		input{
-			message "Could you check PR ?"
+			message "HELLO xxxxx"
 		}
             }
         }
