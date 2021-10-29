@@ -77,7 +77,7 @@ function setGitRepository(){
 function setMavenCurrentVersion(){
 	local pom_file=$1
 	[ ! -f ${pom_file:=pom.xml} ] && error "'${1}' file doesn't exist."
-	export MAVEN_CURRENT_VERSION=$(mvn ${MVN_OPTIONS} org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout)
+	export MAVEN_CURRENT_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout)
 	echo "MAVEN_CURRENT_VERSION=${MAVEN_CURRENT_VERSION}"
 }
 
