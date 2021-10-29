@@ -144,12 +144,16 @@ function gitPushBranch(){
 	gitPush "--set-upstream origin "${1}""
 }
 
+#
+# Git push to origin. Set DRY_RUN with any value to skip push.
+#
 function gitPush(){
 	local push_cmd="git push -q ${1}"
-	if [ -z ${DRY_RUN+x} ];
+	local echoed=""
+	if [ ! -z "${DRY_RUN}" ]
 	then
-		echo "DRYN_RUN is set..."
-		push_cmd="echo "skip git push command: $push_cmd""
+		echo "DRYN_RUN is set...x${DRYN_RUN}x"
+		echoed="echo Skip command:"
 	fi
-	${push_cmd} || error "Can't push: ${push_cmd}"
+	${echoed} ${push_cmd} || error "Can't push: ${push_cmd}"
 }
