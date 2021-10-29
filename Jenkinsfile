@@ -22,6 +22,7 @@ pipeline {
 		}
 		input{
 			message "HELLO xxxxx"
+			ok "OK"
 		}
             }
         }
