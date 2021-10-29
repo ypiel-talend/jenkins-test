@@ -7,14 +7,16 @@ pipeline {
     }
     stages {
 	stage('init') {
-		script{
-		    if (params.POST_LOGIN_SCRIPT?.trim()) {
-			try {
-			    sh "${params.POST_LOGIN_SCRIPT}"
-			} catch (error) {
-			    //
+		steps {
+			script{
+			    if (params.POST_LOGIN_SCRIPT?.trim()) {
+				try {
+				    sh "${params.POST_LOGIN_SCRIPT}"
+				} catch (error) {
+				    //
+				}
+			    }
 			}
-		    }
 		}
 	}
         stage('build') {
