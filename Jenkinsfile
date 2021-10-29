@@ -20,10 +20,7 @@ pipeline {
 			).trim()
 			echo "Create branch: ${CREATE_BRANCH_OUT}"
 		}
-		input{
-			message "HELLO xxxxx"
-			ok "OK"
-		}
+		input(message: "HELLO xxxxx", ok: "OK")
             }
         }
     }
