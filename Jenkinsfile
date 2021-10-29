@@ -20,7 +20,7 @@ pipeline {
 			).trim()
 			echo "Create branch: ${CREATE_BRANCH_OUT}"
 		}
-		input(message: "${CREATE_BRANCH_OUT}")
+		input(message: "xxxxx / ${CREATE_BRANCH_OUT}")
             }
         }
     }
