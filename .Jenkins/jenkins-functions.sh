@@ -124,7 +124,7 @@ function gitCreateBranch(){
 	[ -z "${branch}" ] && error "Given branch is empty."
 	gitGiveLastCommitOfBranch "$branch" && error "The branch $branch already exists." 
 	git checkout -b ${branch} || error "Can't checkout ${branch}."
-	pushBranch "${branch}"
+	gitPushBranch "${branch}"
 }
 
 #
