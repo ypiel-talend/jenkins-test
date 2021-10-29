@@ -7,7 +7,8 @@ pipeline {
         booleanParam(name: 'DEBUG', defaultValue: false, description: 'DEBUG mode')
     }
     environment {
-        DRY_RUN
+        DRY_RUN="${params.DRY_RUN}"
+        DEBUG="${params.DEBUG}"
     }
     stages {
         stage('build') {
