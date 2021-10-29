@@ -17,7 +17,7 @@ fi
 export JENKINS_OUT_FILE=$(mktemp)
 
 # Some option for manven to be less verbose
-alias mvn="mvn -ntp"
+# alias mvn="mvn -ntp"
 
 function error(){
 	echo >&2
@@ -30,7 +30,6 @@ function endScript(){
 	local msg=$1
 	[ ! -z "${msg}" ] && echo "${msg}"
 
-	local jenkins_infos=$(cat ${JENKINS_OUT_FILE})
 	if [ -s "${JENKINS_OUT_FILE}" ]
 	then
 		echo
