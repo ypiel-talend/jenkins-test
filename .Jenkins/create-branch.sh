@@ -55,7 +55,7 @@ setBranchName
 setReleaseVersion 
 
 isMaintenanceBranch "${BRANCH_NAME}" && error "You are already on maintenance branch '${BRANCH_NAME}'."
-isMasterBranch "${BRANCH_NAME}" || error "Unknown branch name '$BRANCH_NAME'."
+isMasterBranch "${BRANCH_NAME}" || error "You are not on master branch but on '$BRANCH_NAME'."
 
 createMaintenanceBranch 
 gitCleanLocal 
