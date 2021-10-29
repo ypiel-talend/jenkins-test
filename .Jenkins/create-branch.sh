@@ -27,7 +27,7 @@ function updateMasterVersion(){
 	mvnUpdateVersion "${NEW_MASTER_VERSION}"
 	git add .
 	git commit -m "chore: bump ${MAVEN_CURRENT_VERSION} version to ${NEW_MASTER_VERSION}"
-	pushBranch "${TEMP_BUMP_BRANCH}"
+	gitPushBranch "${TEMP_BUMP_BRANCH}"
 }
 
 function jenkinsMessage(){

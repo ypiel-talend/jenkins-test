@@ -124,7 +124,6 @@ function gitCreateBranch(){
 	[ -z "${branch}" ] && error "Given branch is empty."
 	gitGiveLastCommitOfBranch "$branch" && error "The branch $branch already exists." 
 	git checkout -b ${branch} || error "Can't checkout ${branch}."
-	#git push --set-upstream origin ${branch} || error "Can't push new created branch ${branch}."
 	pushBranch "${branch}"
 }
 
@@ -141,6 +140,16 @@ function gitCleanLocal(){
 #
 # Push given branch
 #
-function pushBranch(){
-	git push -q --set-upstream origin "${1}" || error "Can't push new created branch ${1}."
+function gitPushBranch(){
+	gitPush "--set-upstream origin "${1}""
+}
+
+function gitPush(){
+	local push_cmd="git push -q ${1}"
+	if [ -z ${DRY_RUN+x} ];
+	then
+		echo "DRYN_RUN is set..."
+		push_cmd="echo "skip git push command: $push_cmd""
+	fi
+	${push_cmd} || error "Can't push: ${push_cmd}"
 }
