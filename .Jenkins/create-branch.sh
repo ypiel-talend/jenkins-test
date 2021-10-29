@@ -19,11 +19,14 @@ function createMaintenanceBranch(){
 }
 
 function updateMasterVersion(){
+echo "ARRAY HHH: ${MAVEN_RELEASE_VERSION_ARRAY[@]}"
 	echo "Split version BIS:"
 	for v in "${MAVEN_RELEASE_VERSION_ARRAY[@]}"
 	do
 		echo "	- ${v}"
 	done
+
+	[ -z "${MAVEN_RELEASE_VERSION_ARRAY}" ] && error "MAVEN_RELEASE_VERSION_ARRAY not set, please call setReleaseVersion() first."
 
 	local minor=$((${MAVEN_RELEASE_VERSION_ARRAY[1]}+1))
 	export NEW_MASTER_VERSION="${MAVEN_RELEASE_VERSION_ARRAY[0]}.${minor}.${MAVEN_RELEASE_VERSION_ARRAY[2]}-SNAPSHOT"
@@ -52,15 +55,24 @@ head "Create a maintenance/x.y branch from master."
 gitCleanLocal 
 setGitRepository 
 setBranchName 
-setReleaseVersion 
+
+echo "ARRAY AAA : ${MAVEN_RELEASE_VERSION_ARRAY[@]}"
+setReleaseVersion
+echo "ARRAY BBB : ${MAVEN_RELEASE_VERSION_ARRAY[@]}"
 
 isMaintenanceBranch "${BRANCH_NAME}" && error "You are already on maintenance branch '${BRANCH_NAME}'."
+echo "ARRAY BBB22 : ${MAVEN_RELEASE_VERSION_ARRAY[@]}"
 isMasterBranch "${BRANCH_NAME}" || error "You are not on master branch but on '$BRANCH_NAME'."
+echo "ARRAY CC: ${MAVEN_RELEASE_VERSION_ARRAY[@]}"
 
 createMaintenanceBranch 
+echo "ARRAY DDDD: ${MAVEN_RELEASE_VERSION_ARRAY[@]}"
 gitCleanLocal 
+echo "ARRAY EEE: ${MAVEN_RELEASE_VERSION_ARRAY[@]}"
 git checkout ${BRANCH_NAME}  # come back to master
+echo "ARRAY FFFF: ${MAVEN_RELEASE_VERSION_ARRAY[@]}"
 updateMasterVersion 
+echo "ARRAY GGG: ${MAVEN_RELEASE_VERSION_ARRAY[@]}"
 jenkinsMessage
 
 endScript
