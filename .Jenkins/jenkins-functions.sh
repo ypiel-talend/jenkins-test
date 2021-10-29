@@ -16,6 +16,9 @@ fi
 # Define a temporary output file
 export JENKINS_OUT_FILE=$(mktemp)
 
+# Some option for manven to be less verbose
+alias mvn="mvn -ntp"
+
 function error(){
 	echo >&2
 	echo "Execution error:" 1>&2
