@@ -41,11 +41,7 @@ ${GIT_REPOSITORY}/compare/${BRANCH_NAME}...${TEMP_BUMP_BRANCH}?expand=1
 }
 
 
-echo """
-************************************************
-* Create a maintenance/x.y branch from master. *
-************************************************
-"""
+head "Create a maintenance/x.y branch from master."
 
 gitCleanLocal >> ${LOG_FILE}
 setGitRepository >> ${LOG_FILE}

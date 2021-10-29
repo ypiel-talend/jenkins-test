@@ -27,7 +27,7 @@ function endScript(){
 function head(){
 	echo """
 ************************************************
-* Create a maintenance/x.y branch from master. *
+* ${1}
 ************************************************
 """ | tee ${LOG_FILE} | tee ${JENKINS_OUT_FILE}
 }
