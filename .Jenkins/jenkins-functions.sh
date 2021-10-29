@@ -59,7 +59,7 @@ echo "Tools versions:"
 	echo "SHELL=${SHELL}"
 	${SHELL} --version
 
-	export AFAC="xxxxxxx"
+	export AFAC=(aa zz ee rrr)
 	
 echo
 echo
