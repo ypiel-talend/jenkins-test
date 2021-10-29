@@ -20,8 +20,6 @@ pipeline {
 			).trim()
 			echo "Create branch: ${CREATE_BRANCH_OUT}"
 		}
-            }
-	    step {
 		input{
 			message "Could you check PR ?"
 		}
