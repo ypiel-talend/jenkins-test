@@ -121,6 +121,7 @@ function setReleaseVersion(){
 		echo "	- ${v}"
 	done
 	echo
+echo "ARRAY ZZZ: ${MAVEN_RELEASE_VERSION_ARRAY[@]}"
 }
 
 #
