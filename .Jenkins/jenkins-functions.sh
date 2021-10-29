@@ -13,15 +13,15 @@ function error(){
 
 function endScript(){
 	local msg=$1
+	[ ! -z "${msg}" ] && echo "${msg}"
 
 	local jenkins_infos=$(cat ${JENKINS_OUT_FILE})
-	if [  -z "${jenkins_infos}" ]
+	if [ ! -z "${jenkins_infos}" ]
 	then
 		echo "--------------------------------------------------------------------"
 		echo $jenkins_infos
 	fi
 
-	[ ! -z "${msg}" ] && echo "${msg}"
 	exit 0
 }
 
