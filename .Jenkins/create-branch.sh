@@ -19,6 +19,12 @@ function createMaintenanceBranch(){
 }
 
 function updateMasterVersion(){
+	echo "Split version BIS:"
+	for v in "${MAVEN_RELEASE_VERSION_ARRAY[@]}"
+	do
+		echo "	- ${v}"
+	done
+
 	local minor=$((${MAVEN_RELEASE_VERSION_ARRAY[1]}+1))
 	export NEW_MASTER_VERSION="${MAVEN_RELEASE_VERSION_ARRAY[0]}.${minor}.${MAVEN_RELEASE_VERSION_ARRAY[2]}-SNAPSHOT"
 
