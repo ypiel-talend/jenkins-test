@@ -19,7 +19,7 @@ function endScript(){
 	if [ -s "${JENKINS_OUT_FILE}" ]
 	then
 		echo "--------------------------------------------------------------------"
-		echo cat ${JENKINS_OUT_FILE}
+		cat ${JENKINS_OUT_FILE}
 	fi
 
 	exit 0
