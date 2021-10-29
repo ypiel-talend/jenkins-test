@@ -3,23 +3,18 @@ def branchName = env.BRANCH_NAME
 pipeline {
     agent { docker { image 'maven:3.3.3' } }
     parameters {
-        string(name: 'SHELL_CMD', defaultValue: "", description: 'Execute a shell command at the beginning.')
+        booleanParam(name: 'DRY_RUN', defaultValue: false, description: 'DRY_RUN mode')
+        booleanParam(name: 'DEBUG', defaultValue: false, description: 'DEBUG mode')
+    }
+    environment {
+        DRY_RUN
     }
     stages {
-	stage('init') {
-		steps {
-			script{
-			    if (params.POST_LOGIN_SCRIPT?.trim()) {
-				params.POST_LOGIN_SCRIPT = params.POST_LOGIN_SCRIPT.trim() + ' &&'
-			    }
-			}
-		}
-	}
         stage('build') {
             steps {
 		script{
 			CREATE_BRANCH_OUT = sh (
-						script: '${params.POST_LOGIN_SCRIPT} .Jenkins/create-branch.sh',
+						script: '.Jenkins/create-branch.sh',
 						returnStdout: true
 			).trim()
 			echo "Create branch: ${CREATE_BRANCH_OUT}"

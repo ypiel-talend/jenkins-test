@@ -2,7 +2,16 @@
 # DRY_RUN: skip all git push (can generate side effects)
 #
 # set a value in DEBUG variable to echo all commands
-[ ! -z ${DEBUG+x} ] && set -x
+echo "DEBUG=${DEBUG}"
+echo "DRY_RUN=${DRY_RUN}"
+
+[ "true" = "${DEBUG}" ] && echo "Set DEBUG mode" && set -x
+if [ "true" = "${DRY_RUN}" ]
+then
+	echo "Set DRY_RUN mode"
+else
+	unset DRY_RUN
+fi
 
 # Define a temporary output file
 export JENKINS_OUT_FILE=$(mktemp)
