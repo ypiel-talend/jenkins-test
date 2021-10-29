@@ -53,6 +53,8 @@ echo
 echo "Tools versions:"
 	mvn --version
 	git --version
+echo
+echo
 }
 
 #
@@ -113,6 +115,12 @@ function setReleaseVersion(){
 
 	export MAVEN_RELEASE_VERSION_ARRAY=($(echo ${MAVEN_RELEASE_VERSION} | sed "s/\./ /g"))
 	[ 3 -eq ${#MAVEN_RELEASE_VERSION_ARRAY[@]} ] || error "Split version doesn't contains 3 parts ${MAVEN_RELEASE_VERSION}."
+	echo "Split version:"
+	for v in "${MAVEN_RELEASE_VERSION_ARRAY[@]}"
+	do
+		echo "	- ${v}"
+	done
+	echo
 }
 
 #
