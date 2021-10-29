@@ -10,11 +10,7 @@ pipeline {
 		steps {
 			script{
 			    if (params.POST_LOGIN_SCRIPT?.trim()) {
-				try {
-				    sh "${params.POST_LOGIN_SCRIPT}"
-				} catch (error) {
-				    //
-				}
+				params.POST_LOGIN_SCRIPT = params.POST_LOGIN_SCRIPT.trim() + ' &&'
 			    }
 			}
 		}
@@ -23,7 +19,7 @@ pipeline {
             steps {
 		script{
 			CREATE_BRANCH_OUT = sh (
-						script: '.Jenkins/create-branch.sh',
+						script: '${params.POST_LOGIN_SCRIPT} .Jenkins/create-branch.sh',
 						returnStdout: true
 			).trim()
 			echo "Create branch: ${CREATE_BRANCH_OUT}"
