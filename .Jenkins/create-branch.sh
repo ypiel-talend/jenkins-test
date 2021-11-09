@@ -42,6 +42,10 @@ ${GIT_REPOSITORY}/compare/${BRANCH_NAME}...${TEMP_BUMP_BRANCH}?expand=1
 """ >> ${JENKINS_OUT_FILE}
 }
 
+echo "AAA : $1"
+echo "BBB : $2"
+echo "CCC : $3"
+
 
 head "Create a maintenance/x.y branch from master."
 
