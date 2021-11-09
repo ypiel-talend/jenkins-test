@@ -22,7 +22,7 @@ function updateMasterVersion(){
 	MAVEN_RELEASE_VERSION_ARRAY=($(splitReleaseVersion))
 
 	local minor=$((${MAVEN_RELEASE_VERSION_ARRAY[1]}+1))
-	export NEW_MASTER_VERSION="${MAVEN_RELEASE_VERSION_ARRAY[0]}.${minor}.${MAVEN_RELEASE_VERSION_ARRAY[2]}-SNAPSHOT"
+	export NEW_MASTER_VERSION="${MAVEN_RELEASE_VERSION_ARRAY[0]}.${minor}.0-SNAPSHOT"
 
 	export TEMP_BUMP_BRANCH="temp/bump/${NEW_MASTER_VERSION}"
 	git checkout -b "${TEMP_BUMP_BRANCH}"
