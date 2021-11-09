@@ -23,7 +23,7 @@ pipeline {
 				'CONNETORS-EE'    : 'git@github.com:Talend/connectors-ee.git',
 				'CLOUD-COMPONENTS': 'git@github.com:Talend/cloud-components.git'
 			    ]
-			def selected_reposi_list = []
+			def selected_repos_list = []
 			all_repos.each {
 			    if(params.Repository == 'ALL' || params.Repository == it.key) {
 				selected_repos_list.add( it.value )
@@ -35,7 +35,7 @@ pipeline {
         }
         stage('build') {
             steps {
-		sh (script: ".Jenkins/create-branch.sh $repos", returnStdout: false)
+		sh (script: ".Jenkins/create-branch.sh $selected_repos", returnStdout: false)
 		input(message: "Please, check above message, and click on continue when ready...")
             }
         }
