@@ -16,19 +16,21 @@ pipeline {
     }
     stages {
         stage('compute_parameters') {
-	    script {
-	        def all_repos = [
-	                'CONNETORS-SE'    : 'git@github.com:Talend/connectors-se.git',
-	                'CONNETORS-EE'    : 'git@github.com:Talend/connectors-ee.git',
-	                'CLOUD-COMPONENTS': 'git@github.com:Talend/cloud-components.git'
-	            ]
-	        def selected_reposi_list = []
-	        all_repos.each {
-	            if(params.Repository == 'ALL' || params.Repository == it.key) {
-	                selected_repos_list.add( it.value )
-	            }
-	        }
-                selected_repos = selected_repos_list.join(' ');
+	    steps {
+		    script {
+			def all_repos = [
+				'CONNETORS-SE'    : 'git@github.com:Talend/connectors-se.git',
+				'CONNETORS-EE'    : 'git@github.com:Talend/connectors-ee.git',
+				'CLOUD-COMPONENTS': 'git@github.com:Talend/cloud-components.git'
+			    ]
+			def selected_reposi_list = []
+			all_repos.each {
+			    if(params.Repository == 'ALL' || params.Repository == it.key) {
+				selected_repos_list.add( it.value )
+			    }
+			}
+			selected_repos = selected_repos_list.join(' ');
+		    }
             }
         }
         stage('build') {
