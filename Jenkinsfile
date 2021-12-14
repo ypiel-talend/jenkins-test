@@ -2,7 +2,7 @@ def branchName = env.BRANCH_NAME
 def selected_repos = ""
 
 pipeline {
-    agent { docker { image 'maven:3.3.3' } }
+    agent { docker { image 'maven:3.8.4-jdk-11' } }
     parameters {
         choice(name: 'Repository',
                choices: ['ALL', 'CONNECTORS-SE', 'CONNECTORS-EE', 'CLOUD-COMPONENTS'],
