@@ -5,7 +5,7 @@ pipeline {
     agent { docker { image 'maven:3.3.3' } }
     parameters {
         choice(name: 'Repository',
-               choices: ['ALL', 'CONNECTORS-SE', 'CONNECORS-EE', 'CLOUD-COMPONENTS'],
+               choices: ['ALL', 'CONNECTORS-SE', 'CONNECTORS-EE', 'CLOUD-COMPONENTS'],
                description: 'Select the repository for which you want to create the maintenance/x.y branch.')
         booleanParam(name: 'DRY_RUN', defaultValue: false, description: 'DRY_RUN mode')
         booleanParam(name: 'DEBUG', defaultValue: false, description: 'DEBUG mode')
@@ -19,8 +19,8 @@ pipeline {
 	    steps {
 		    script {
 			def all_repos = [
-				'CONNETORS-SE'    : 'git@github.com:Talend/connectors-se.git',
-				'CONNETORS-EE'    : 'git@github.com:Talend/connectors-ee.git',
+				'CONNECTORS-SE'    : 'git@github.com:Talend/connectors-se.git',
+				'CONNECTORS-EE'    : 'git@github.com:Talend/connectors-ee.git',
 				'CLOUD-COMPONENTS': 'git@github.com:Talend/cloud-components.git'
 			    ]
 			def selected_repos_list = []
